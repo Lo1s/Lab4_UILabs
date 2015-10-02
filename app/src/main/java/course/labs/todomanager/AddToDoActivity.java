@@ -1,8 +1,5 @@
 package course.labs.todomanager;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -10,7 +7,6 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,6 +16,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.util.Calendar;
+import java.util.Date;
+
 import course.labs.todomanager.ToDoItem.Priority;
 import course.labs.todomanager.ToDoItem.Status;
 
@@ -89,13 +90,9 @@ public class AddToDoActivity extends Activity {
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-
-
 				// TODO - Indicate result and finish
-
-                
-                
+				Toast.makeText(AddToDoActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+				finish();
 			}
 		});
 
@@ -104,17 +101,12 @@ public class AddToDoActivity extends Activity {
 		resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-
 				// TODO - Reset data to default values
-
-
-                
-                
-                
 				// reset date and time
 				setDefaultDateTime();
-
+				mTitleText.setText("");
+				mDefaultStatusButton.setChecked(true);
+				mDefaultPriorityButton.setChecked(true);
 			}
 		});
 
@@ -128,17 +120,14 @@ public class AddToDoActivity extends Activity {
 
 				// gather ToDoItem data
 
-
 				// TODO - Get the current Priority
-				Priority priority = null;
+				Priority priority = getPriority();
 
 				// TODO - Get the current Status
-				Status status = null;
+				Status status = getStatus();
 
 				// TODO - Get the current ToDoItem Title
-
-
-				String titleString = null;
+				String titleString = getToDoTitle();
 
 
 				// Construct the Date string
@@ -150,11 +139,8 @@ public class AddToDoActivity extends Activity {
 						fullDate);
 
 				// TODO - return data Intent and finish
-
-
-
-
-            
+				setResult(RESULT_OK, data);
+				finish();
             
 			}
 		    });
